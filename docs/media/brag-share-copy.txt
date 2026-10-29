@@ -1,0 +1,1 @@
+Checking insurance certificates by eye? coi-lint checks a COI against your project's requirements in one command (holder, limits, additional insured, waiver of subrogation, expiry) and drafts the deficiency letter for you. Offline Python CLI, MIT licensed; PDF input is next on the roadmap.

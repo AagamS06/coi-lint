@@ -7,6 +7,12 @@
 ![Status](https://img.shields.io/badge/status-Phase%200-8A96A3)
 ![Tests](https://img.shields.io/badge/tests-pytest-3FB97A)
 
+## Launch video
+
+[![coi-lint launch video](docs/media/brag.jpg)](docs/media/brag.mp4)
+
+20-second launch video: [docs/media/brag.mp4](docs/media/brag.mp4) (opens with a 5.4 s "rotate your phone" intro) · original cut: [docs/media/brag-original.mp4](docs/media/brag-original.mp4). YouTube link coming soon.
+
 ## The problem
 
 Before a subcontractor, vendor or tenant can start work, someone has to collect their certificate of insurance and check it by eye against the contract: right certificate holder? limits high enough? additional insured and waiver of subrogation marked? project named? anything expiring next week? It's mechanical work done from PDFs, tracked in spreadsheets and chased by email — and the same problems bounce between general contractors, insureds and their brokers.
