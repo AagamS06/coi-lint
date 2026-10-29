@@ -9,9 +9,9 @@
 
 ## Launch video
 
-[![coi-lint launch video](docs/media/brag.jpg)](docs/media/brag.mp4)
+[![coi-lint launch video](docs/media/coi-lint-cover.jpg)](docs/media/coi-lint.mp4)
 
-20-second launch video: [docs/media/brag.mp4](docs/media/brag.mp4) (opens with a 5.4 s "rotate your phone" intro) · original cut: [docs/media/brag-original.mp4](docs/media/brag-original.mp4). YouTube link coming soon.
+20-second launch video: [docs/media/coi-lint.mp4](docs/media/coi-lint.mp4) · social cut with a "rotate your phone" intro: [docs/media/social-coi-lint.mp4](docs/media/social-coi-lint.mp4). YouTube link coming soon.
 
 ## The problem
 
@@ -64,6 +64,10 @@ DEFICIENT  (2 fail, 1 warn, 11 pass)
 
 Add `--format letter` for a deficiency request to the broker, or `--format json` for agents and CI.
 
+## Use it with Claude (skill)
+
+[`skills/coi-lint/SKILL.md`](skills/coi-lint/SKILL.md) teaches Claude (or any agent that reads skills) to install coi-lint, turn a certificate and a contract clause into the two input files, run the check and explain the result. Download the skill folder from the [latest release](https://github.com/AagamS06/coi-lint/releases/latest) or copy it from the repo, then add it as a skill.
+
 ## Tech stack
 
 Python 3.10+ · PyYAML · stdlib dataclasses + argparse · pytest · ruff. Phase 1 adds pypdf and pdfplumber. No network calls, no LLM in the verdict path. Details in [Architecture.md](Architecture.md).
@@ -87,7 +91,8 @@ Write your own `requirements.yaml` (copy the example) and a normalised certifica
 src/coi_lint/   cli.py · models.py · rules.py · report.py
 examples/       requirements.yaml · cert_sample.json (fictional)
 tests/          test_rules.py
-docs/media/     launch video + poster
+skills/coi-lint/  SKILL.md for Claude and other agents
+docs/media/     launch video, social cut, cover, YouTube text
 ```
 
 ## Roadmap
@@ -104,6 +109,7 @@ Phase 0 (rules core) is done. Next: real PDFs and folder sweeps, then integrity 
 | [Phases.md](Phases.md) | Phased plan with checkboxes and exit criteria |
 | [Design.md](Design.md) | Colours, themes, typography, components, accessibility |
 | [Memory.md](Memory.md) | One-page handoff: decisions, status, next steps |
+| [SKILL.md](skills/coi-lint/SKILL.md) | Agent skill: how to run coi-lint and explain findings |
 
 ## Contributing
 

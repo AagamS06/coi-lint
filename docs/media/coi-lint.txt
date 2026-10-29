@@ -1,0 +1,14 @@
+TITLE
+coi-lint — linting for certificates of insurance
+
+DESCRIPTION
+Checking insurance certificates by eye? coi-lint checks a COI against your project's requirements in one command (holder, limits, additional insured, waiver of subrogation, expiry) and drafts the deficiency letter for you. Offline Python CLI, MIT licensed; PDF input is next on the roadmap.
+
+Code: https://github.com/AagamS06/coi-lint
+Independent student project; not affiliated with any company mentioned.
+
+TAGS
+yc-gap-project, insurance, construction, compliance, python, cli, coi-lint
+
+CATEGORY
+Science & Technology

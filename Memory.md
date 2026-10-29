@@ -12,7 +12,7 @@
 - Fictional data only; never bundle copyrighted certificate forms; letters are drafts.
 
 ## Status
-- **Done:** docs set; Phase 0 scaffold (model, 8 rules, text/json/letter output, examples, 4 tests passing); launch video + poster in docs/media.
+- **Done:** docs set; Phase 0 scaffold (model, 8 rules, text/json/letter output, examples, 4 tests passing); launch video, social cut and cover in docs/media; agent skill in skills/coi-lint/SKILL.md; v0.1.0 release.
 - **In progress:** —
 - **Next:** CI workflow; Phase 1 `extract/forms.py` (pypdf form fields).
 - **Backlog:** text fallback, sweep + CSV, .ics export, integrity signals, HTML report, PyPI, agent tool wrapper.
