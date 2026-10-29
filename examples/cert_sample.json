@@ -1,0 +1,40 @@
+{
+  "insured": "Northside Electric Co (fictional)",
+  "producer": "Sample Insurance Agency (fictional)",
+  "holder": "Example Builders LLC",
+  "issued": "2026-10-20",
+  "description": "Electrical work at 120 Harbor St fit-out. Certificate holder is additional insured on GL.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000001",
+      "effective": "2026-03-01",
+      "expires": "2027-03-01",
+      "limits": {"each_occurrence": 1000000, "general_aggregate": 2000000},
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000002",
+      "effective": "2025-11-15",
+      "expires": "2026-11-15",
+      "limits": {"combined_single_limit": 1000000}
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000003",
+      "effective": "2026-03-01",
+      "expires": "2027-03-01",
+      "limits": {"each_occurrence": 2000000}
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000004",
+      "effective": "2026-01-01",
+      "expires": "2027-01-01",
+      "limits": {"el_each_accident": 1000000},
+      "waiver_of_subrogation": true
+    }
+  ]
+}

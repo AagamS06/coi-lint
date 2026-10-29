@@ -1,0 +1,23 @@
+# Example requirements profile for a (fictional) general contractor's project.
+name: Harbor St Fit-out — subcontractor minimums
+holder: Example Builders LLC
+warn_days: 30
+description_must_mention:
+  - Harbor St
+coverages:
+  - kind: general_liability
+    min_limits:
+      each_occurrence: 1000000
+      general_aggregate: 2000000
+    additional_insured: true
+    waiver_of_subrogation: true
+  - kind: auto
+    min_limits:
+      combined_single_limit: 1000000
+  - kind: umbrella
+    min_limits:
+      each_occurrence: 5000000
+  - kind: workers_comp
+    min_limits:
+      el_each_accident: 1000000
+    waiver_of_subrogation: true
