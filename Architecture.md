@@ -13,7 +13,8 @@ flowchart LR
     E --> F[Terminal report]
     E --> G[JSON for agents/CI]
     E --> H[Deficiency letter draft]
-    E -->|Phase 1| I[Expiry .ics / CSV register]
+    E --> L[Renewals across certificates<br/>30/60/90-day windows]
+    L --> I[.ics calendar with reminders<br/>+ renewal-request drafts]
     A -->|Phase 2| K[Integrity signals]
     K --> F
 ```
@@ -35,7 +36,8 @@ Single-process, offline Python CLI + importable library. No server, no database,
 | Output | `report.py` | text / JSON / letter renderers |
 | Extract (P1) | `extract/forms.py`, `extract/text.py` | PDF form fields via pypdf; text fallback via pdfplumber + field map |
 | Integrity (P2) | `integrity.py` | PDF metadata and structure signals |
-| Export (P1) | `export.py` | `.ics` calendar, CSV register |
+| Renewals | `renewals.py` | load many certificates, days left, 30/60/90-day windows |
+| Export | `export.py` | `.ics` calendar with reminders, renewals JSON, renewal-request drafts per broker |
 
 ## 3. Folder and file structure
 
@@ -49,11 +51,13 @@ coi-lint/
 │   ├── rules.py           # COI001–COI008 + verdict
 │   ├── report.py          # text / json / letter
 │   ├── extract/           # (Phase 1) PDF → Certificate
-│   ├── export.py          # (Phase 1) ics / csv
+│   ├── renewals.py        # renewal tracking across certificates
+│   ├── export.py          # .ics calendar, renewals JSON, renewal letters
 │   └── integrity.py       # (Phase 2)
 ├── examples/
 │   ├── requirements.yaml  # sample project profile (fictional)
-│   └── cert_sample.json   # sample normalised certificate (fictional)
+│   ├── cert_sample.json   # sample normalised certificate (fictional)
+│   └── certs/             # two more fictional certificates for the renewals demo
 ├── tests/                 # pytest
 ├── docs/media/            # launch video, poster
 ├── PRD.md  Architecture.md  Rules.md  Phases.md  Design.md  Memory.md
@@ -115,5 +119,6 @@ Finding
 - **Library**: `from coi_lint.rules import check, verdict`
 - **JSON output** (stable contract for agents and CI):
   `{"insured", "requirements", "verdict", "findings": [{"rule","severity","coverage","message"}]}`
-- **Phase 1**: `coi-lint extract <cert.pdf>` → JSON; `coi-lint sweep <dir>`; `--ics out.ics`.
+- **Renewals (v0.2.0)**: `coi-lint renewals <files/dirs> [--within 90] [--rules req.yaml] [--ics out.ics] [--format text|json|letter]`; exit `1` if anything shown has expired.
+- **Phase 1**: `coi-lint extract <cert.pdf>` → JSON; `coi-lint sweep <dir>`.
 - **Phase 3**: tool/MCP schema wrapping `check` so agent products can call it.

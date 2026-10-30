@@ -4,7 +4,7 @@
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/license-MIT-F5B83D)
-![Status](https://img.shields.io/badge/status-Phase%200-8A96A3)
+![Status](https://img.shields.io/badge/version-v0.2.0-8A96A3)
 ![Tests](https://img.shields.io/badge/tests-pytest-3FB97A)
 
 ## Launch video
@@ -34,7 +34,10 @@ The gaps it targets were observed in public descriptions of YC Summer/Fall 2026 
 | ✅ | Terminal report, JSON output, deficiency-letter draft | Phase 0 |
 | ✅ | CI-friendly exit codes (0 compliant, 1 deficient, 2 bad input) | Phase 0 |
 | 🗺️ | Read certificate PDFs (form fields + text fallback) | Planned — Phase 1 |
-| 🗺️ | Folder sweep, CSV register, `.ics` expiry calendar | Planned — Phase 1 |
+| ✅ | Renewal tracking across many certificates: expired / 30 / 60 / 90-day windows | v0.2.0 |
+| ✅ | `.ics` calendar export with reminders 90, 60 and 30 days before each expiry | v0.2.0 |
+| ✅ | Renewal-request drafts, one per broker | v0.2.0 |
+| 🗺️ | Compliance sweep over a folder + CSV register | Planned — Phase 1 |
 | 🗺️ | PDF integrity signals, HTML report | Planned — Phase 2 |
 | 🗺️ | PyPI package, agent tool wrapper | Planned — Phase 3 |
 
@@ -64,6 +67,28 @@ DEFICIENT  (2 fail, 1 warn, 11 pass)
 
 Add `--format letter` for a deficiency request to the broker, or `--format json` for agents and CI.
 
+### Track renewals (v0.2.0)
+
+Renewal chasing starts all over again every few months. Point `renewals` at every certificate on a project to see what's expired or coming up, get calendar reminders, and draft the requests:
+
+```console
+$ coi-lint renewals examples/cert_sample.json examples/certs --today 2026-10-30 --ics renewals.ics
+coi-lint renewals · 3 certificates · next 90 days (from 2026-10-30)
+
+  ✗ expired 10d ago   2026-10-20  Harbor Plumbing Pty (fictional) · Workers' compensation · WC-0000102
+  ! 16d left          2026-11-15  Northside Electric Co (fictional) · Automobile liability · AU-0000002
+  · 51d left          2026-12-20  Harbor Plumbing Pty (fictional) · General liability · GL-0000101
+  · 63d left          2027-01-01  Northside Electric Co (fictional) · Workers' compensation · WC-0000004
+  · 87d left          2027-01-25  Coastal Steel Erectors (fictional) · General liability · GL-0000201
+  · 87d left          2027-01-25  Coastal Steel Erectors (fictional) · Umbrella / excess · UM-0000202
+
+1 expired, 1 within 30 days, 4 within 90 days
+
+Calendar: 8 upcoming expiries written to renewals.ics (reminders 90, 60 and 30 days before)
+```
+
+Import `renewals.ics` into Google Calendar, Outlook or Apple Calendar to get reminders 90, 60 and 30 days before each expiry (re-importing an updated file updates the events instead of duplicating them). Add `--format letter` for one renewal-request draft per broker, `--within 30` for a tighter window, or `--rules requirements.yaml` to track only the coverages your contract requires.
+
 ## Use it with Claude (skill)
 
 [`skills/coi-lint/SKILL.md`](skills/coi-lint/SKILL.md) teaches Claude (or any agent that reads skills) to install coi-lint, turn a certificate and a contract clause into the two input files, run the check and explain the result. Download the skill folder from the [latest release](https://github.com/AagamS06/coi-lint/releases/latest) or copy it from the repo, then add it as a skill.
@@ -88,16 +113,16 @@ Write your own `requirements.yaml` (copy the example) and a normalised certifica
 ## Project structure
 
 ```
-src/coi_lint/   cli.py · models.py · rules.py · report.py
-examples/       requirements.yaml · cert_sample.json (fictional)
-tests/          test_rules.py
+src/coi_lint/   cli.py · models.py · rules.py · report.py · renewals.py · export.py
+examples/       requirements.yaml · cert_sample.json · certs/ (all fictional)
+tests/          test_rules.py · test_renewals.py
 skills/coi-lint/  SKILL.md for Claude and other agents
 docs/media/     launch video, social cut, cover, YouTube text
 ```
 
 ## Roadmap
 
-Phase 0 (rules core) is done. Next: real PDFs and folder sweeps, then integrity signals and an HTML report, then PyPI and an agent tool wrapper. Full checklist in [Phases.md](Phases.md).
+Phase 0 (rules core) and renewal tracking (v0.2.0) are done; see [CHANGELOG.md](CHANGELOG.md). Next: real PDFs and a compliance sweep, then integrity signals and an HTML report, then PyPI and an agent tool wrapper. Full checklist in [Phases.md](Phases.md).
 
 ## Docs
 
@@ -109,7 +134,8 @@ Phase 0 (rules core) is done. Next: real PDFs and folder sweeps, then integrity 
 | [Phases.md](Phases.md) | Phased plan with checkboxes and exit criteria |
 | [Design.md](Design.md) | Colours, themes, typography, components, accessibility |
 | [Memory.md](Memory.md) | One-page handoff: decisions, status, next steps |
-| [SKILL.md](skills/coi-lint/SKILL.md) | Agent skill: how to run coi-lint and explain findings |
+| [SKILL.md](skills/coi-lint/SKILL.md) | Agent skill: how to run coi-lint, track renewals and explain findings |
+| [CHANGELOG.md](CHANGELOG.md) | What changed in each release |
 
 ## Contributing
 

@@ -1,0 +1,32 @@
+{
+  "insured": "Coastal Steel Erectors (fictional)",
+  "producer": "Sample Insurance Agency (fictional)",
+  "holder": "Example Builders LLC",
+  "issued": "2026-02-03",
+  "description": "Structural steel erection, 120 Harbor St.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000201",
+      "effective": "2026-01-25",
+      "expires": "2027-01-25",
+      "limits": {"each_occurrence": 1000000, "general_aggregate": 2000000},
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000202",
+      "effective": "2026-01-25",
+      "expires": "2027-01-25",
+      "limits": {"each_occurrence": 5000000}
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000203",
+      "effective": "2026-06-01",
+      "expires": "2027-06-01",
+      "limits": {"combined_single_limit": 1000000}
+    }
+  ]
+}

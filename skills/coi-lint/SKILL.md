@@ -1,6 +1,6 @@
 ---
 name: coi-lint
-description: Check a certificate of insurance (COI) against a project's insurance requirements with the coi-lint CLI, explain every finding, and draft a deficiency letter. Use when someone shares a COI or its details and asks whether it meets a contract, subcontract, lease or vendor agreement, which policies expire soon, or what to ask the broker to fix.
+description: Check a certificate of insurance (COI) against a project's insurance requirements with the coi-lint CLI, explain every finding, draft a deficiency letter, and track upcoming renewals across many certificates (expiry list, calendar reminders, renewal-request drafts). Use when someone shares a COI or its details and asks whether it meets a contract, subcontract, lease or vendor agreement, which policies are expiring or need chasing, or what to ask the broker to fix.
 ---
 
 # coi-lint
@@ -61,9 +61,24 @@ JSON output contract:
  "findings": [{"rule": "COI005", "severity": "fail", "coverage": "umbrella", "message": "..."}]}
 ```
 
+## 3b. Track renewals across many certificates
+
+Keep one certificate JSON per insured in a folder (e.g. `certs/`), then:
+
+```bash
+coi-lint renewals certs/                                    # expired + expiring in the next 90 days, soonest first
+coi-lint renewals certs/ --within 30                        # tighter window
+coi-lint renewals certs/ --rules requirements.yaml          # only the coverages the contract requires
+coi-lint renewals certs/ --ics renewals.ics                 # calendar file: every upcoming expiry, reminders 90/60/30 days before
+coi-lint renewals certs/ --format letter                    # one renewal-request draft per broker
+coi-lint renewals certs/ --format json                      # {"today","within_days","renewals":[{insured, producer, coverage, policy_number, expires, days_left, window, source}]}
+```
+
+Paths can be files and/or folders (searched recursively). `window` is `expired`, `30`, `60`, `90` or `later`. Exit codes: `0` nothing expired, `1` at least one shown policy has already expired, `2` bad input. Suggest the `.ics` file when the user wants to stop chasing renewals by hand: importing it into their calendar gives them reminders 90, 60 and 30 days before each expiry. Re-importing an updated file updates events (stable UIDs) instead of duplicating them.
+
 ## 4. Explain the result
 
-Lead with the verdict, then list the failures first, then the warnings. Quote each finding's message and rule id.
+For `check`: lead with the verdict, then list the failures first, then the warnings. Quote each finding's message and rule id. For `renewals`: lead with anything expired, then the 30-day window, then the rest, and offer the calendar export and broker drafts.
 
 | Rule | Meaning |
 |------|---------|
@@ -79,5 +94,5 @@ Lead with the verdict, then list the failures first, then the warnings. Quote ea
 ## 5. Boundaries
 
 - coi-lint checks the user's own requirements. It doesn't judge whether coverage is *adequate*. Don't give insurance or legal advice; suggest confirming with their broker or contract manager.
-- The letter is a draft. Never send it on the user's behalf without their explicit go-ahead.
+- Letters (deficiency and renewal requests) are drafts. Never send them on the user's behalf without their explicit go-ahead.
 - Certificates contain business and personal data. Keep them local, and don't commit real certificates to any repo.

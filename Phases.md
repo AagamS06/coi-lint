@@ -18,8 +18,10 @@
 - [ ] `extract/text.py`: text-layer fallback with a configurable field map
 - [ ] Mark unreadable fields `unknown`; unknown required fields fail with "could not read"
 - [ ] `coi-lint extract <pdf>` → JSON
-- [ ] `coi-lint sweep <dir> --rules` → table + CSV register
-- [ ] `--ics` expiry calendar export (one event per policy, alarm at `warn_days`)
+- [x] `coi-lint renewals <files/dirs>`: expired + upcoming expiries across many certificates, 30/60/90-day windows (v0.2.0)
+- [x] `--ics` expiry calendar export: one event per policy, reminders 90/60/30 days before (v0.2.0)
+- [x] Renewal-request drafts grouped by broker (`renewals --format letter`) (v0.2.0)
+- [ ] `coi-lint sweep <dir> --rules` → compliance table + CSV register
 - [ ] 30 synthetic labelled certificates; extraction accuracy ≥ 95%
 
 **Exit criteria:** a 100-file sweep runs in < 10 s with ≥ 95% field accuracy on the labelled set.

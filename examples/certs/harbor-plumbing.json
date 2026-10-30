@@ -1,0 +1,26 @@
+{
+  "insured": "Harbor Plumbing Pty (fictional)",
+  "producer": "Bayview Brokers (fictional)",
+  "holder": "Example Builders LLC",
+  "issued": "2026-01-12",
+  "description": "Plumbing rough-in and fit-off, 120 Harbor St.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000101",
+      "effective": "2025-12-20",
+      "expires": "2026-12-20",
+      "limits": {"each_occurrence": 2000000, "general_aggregate": 4000000},
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000102",
+      "effective": "2025-10-20",
+      "expires": "2026-10-20",
+      "limits": {"el_each_accident": 1000000},
+      "waiver_of_subrogation": true
+    }
+  ]
+}
