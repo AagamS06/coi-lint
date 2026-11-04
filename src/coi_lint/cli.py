@@ -252,5 +252,28 @@ def main(argv: list[str] | None = None) -> int:
     return a.func(a)
 
 
+PRECOMMIT_FLAGS = {"--no-color", "--no-fixes"}
+
+
+def precommit_main(argv: list[str] | None = None) -> int:
+    """pre-commit hook: options first, then the changed certificate files; check each file."""
+    args = sys.argv[1:] if argv is None else list(argv)
+    opts: list[str] = []
+    files: list[str] = []
+    i = 0
+    while i < len(args):
+        if args[i].startswith("--"):
+            takes_value = args[i] not in PRECOMMIT_FLAGS and "=" not in args[i] and i + 1 < len(args)
+            opts.extend(args[i:i + 2] if takes_value else args[i:i + 1])
+            i += 2 if takes_value else 1
+        else:
+            files.append(args[i])
+            i += 1
+    rc = 0
+    for f in files:
+        rc = max(rc, main(["check", f, *opts, "--no-color"]))
+    return rc
+
+
 if __name__ == "__main__":
     raise SystemExit(main())

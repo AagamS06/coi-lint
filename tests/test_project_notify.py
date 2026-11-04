@@ -60,3 +60,13 @@ def test_webhook_value_never_printed(monkeypatch, capsys):
     assert "secret-token-value" not in capsys.readouterr().err
     with pytest.raises(ValueError):
         notify.webhook_from_env("COI_UNSET_VAR_XYZ")
+
+
+def test_precommit_checks_each_file_and_returns_worst(capsys):
+    from coi_lint.cli import precommit_main
+
+    rc = precommit_main(["--rules", str(EX / "requirements.yaml"), "--today", "2026-06-01",
+                         str(EX / "cert_sample.json"), str(EX / "certs" / "coastal-steel.json")])
+    out = capsys.readouterr().out
+    assert rc == 1
+    assert "Northside" in out and "Coastal" in out

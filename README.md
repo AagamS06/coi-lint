@@ -153,7 +153,7 @@ examples/       requirements*.yaml · waivers.yaml · cert_sample.json · certs/
 packs/          example rule pack
 schemas/        JSON Schemas for certificates, requirements, waivers, packs
 scripts/        make_sample_pdfs.py · precommit.sh
-tests/          38 tests (pytest)
+tests/          39 tests (pytest)
 skills/coi-lint/  SKILL.md for Claude and other agents
 docs/           media (launch video, cover) · examples (GitHub workflow)
 ```

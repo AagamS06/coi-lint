@@ -17,7 +17,7 @@
 - Renewals (v0.2.0, from LinkedIn feedback by someone in compliance): reminder windows fixed at 90/60/30 days; .ics leaves out already-expired policies and uses stable UIDs so re-imports update events.
 
 ## Status
-- **Done:** docs set; Phase 0 scaffold (model, 8 rules, text/json/letter output, examples, 4 tests passing); launch video, social cut and cover in docs/media; agent skill in skills/coi-lint/SKILL.md; v0.1.0 release; v0.2.0 renewals; v0.3.0 PDF extract (forms/text/OCR), fixes + explain, waivers, rule packs, extends/overrides, project report (md/html/csv/json), inbox watcher, Slack, JSON Schemas, CI, GitHub Action, pre-commit (38 tests).
+- **Done:** docs set; Phase 0 scaffold (model, 8 rules, text/json/letter output, examples, 4 tests passing); launch video, social cut and cover in docs/media; agent skill in skills/coi-lint/SKILL.md; v0.1.0 release; v0.2.0 renewals; v0.3.0 PDF extract (forms/text/OCR), fixes + explain, waivers, rule packs, extends/overrides, project report (md/html/csv/json), inbox watcher, Slack, JSON Schemas, CI, GitHub Action, pre-commit (39 tests).
 - **In progress:** —
 - **Next:** make the repo public; field maps for real certificate layouts (fictional values); labelled extraction-accuracy set.
 - **Backlog:** configurable reminder windows, integrity signals, extraction timeouts, PyPI, MCP/tool wrapper, more rule packs.

@@ -18,6 +18,7 @@ ocr = ["pypdf>=4.2", "pdfplumber>=0.11", "pytesseract>=0.3.10"]   # also needs t
 
 [project.scripts]
 coi-lint = "coi_lint.cli:main"
+coi-lint-precommit = "coi_lint.cli:precommit_main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
