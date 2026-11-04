@@ -1,0 +1,14 @@
+# Decisions you've already made, so coi-lint stops re-flagging them. Every waiver must expire.
+waivers:
+  - insured: Northside Electric
+    rule: COI007
+    coverage: general_liability
+    reason: Waiver of subrogation on GL not required for electrical subcontract (contract clause 14.3, fictional)
+    approved_by: J. Example
+    until: 2027-03-01
+  - insured: Harbor Plumbing
+    rule: COI003
+    coverage: workers_comp
+    reason: Renewal confirmed by broker phone call; new certificate promised (fictional)
+    approved_by: J. Example
+    until: 2026-10-25           # already expired on purpose: shows how expired waivers are flagged

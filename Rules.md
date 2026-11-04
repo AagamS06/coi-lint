@@ -22,6 +22,9 @@ Rules for every contributor, human or AI.
 | Config | PyYAML |
 | PDF form fields | pypdf |
 | PDF text | pdfplumber |
+| OCR (optional) | pytesseract + Tesseract |
+| Email / webhooks | stdlib `imaplib`, `email`, `urllib` |
+| Dev only | reportlab (sample PDFs), jsonschema (schema tests) |
 | Tests | pytest |
 | Lint/format | ruff |
 Anything else: open an issue first.
@@ -57,3 +60,8 @@ Anything else: open an issue first.
 - Parse YAML with `yaml.safe_load` only.
 - Treat PDFs as untrusted input: no JavaScript execution, size limits on files, timeouts on extraction.
 - Pin dependency minimums in `pyproject.toml`; review dependabot updates.
+- Secrets (IMAP app passwords, Slack webhook URLs) are only ever read from environment variables named on the command line. Never accept them as arguments, never log or print them, never write them to files.
+- The inbox watcher must never send, delete, move or mark emails: read with `BODY.PEEK`, write only to the Drafts folder.
+- Rule packs stay declarative: never add a check type that evaluates expressions or runs code from a pack.
+- Waivers must always have an expiry date, and expired waivers must be surfaced, not silently applied.
+- No paid APIs or AI calls in the core: the project has to stay free for everyone to run.

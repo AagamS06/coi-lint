@@ -1,16 +1,16 @@
 ---
 name: coi-lint
-description: Check a certificate of insurance (COI) against a project's insurance requirements with the coi-lint CLI, explain every finding, draft a deficiency letter, and track upcoming renewals across many certificates (expiry list, calendar reminders, renewal-request drafts). Use when someone shares a COI or its details and asks whether it meets a contract, subcontract, lease or vendor agreement, which policies are expiring or need chasing, or what to ask the broker to fix.
+description: Check a certificate of insurance (COI, as a PDF or JSON) against a project's insurance requirements with the coi-lint CLI, explain every finding and its fix, draft a deficiency letter, record waivers, build a project compliance report, and track upcoming renewals across many certificates (expiry list, calendar reminders, renewal-request drafts). Use when someone shares a COI or its details and asks whether it meets a contract, subcontract, lease or vendor agreement, which policies are expiring or need chasing, or what to ask the broker to fix.
 ---
 
 # coi-lint
 
-coi-lint is an offline, deterministic Python CLI. It compares one certificate of insurance with a requirements profile and returns pass / warn / fail findings with stable rule ids (COI001 to COI008), plus an optional deficiency-letter draft. Same inputs always give the same output, so treat its verdict as the source of truth instead of reasoning about limits yourself.
+coi-lint is an offline, deterministic Python CLI. It compares a certificate of insurance (PDF or JSON) with a requirements profile and returns pass / warn / fail / waived findings with stable rule ids (COI001 to COI010, plus any rule-pack ids), each problem with a `fix` to ask the broker for, and an optional deficiency-letter draft. Same inputs always give the same output, so treat its verdict as the source of truth instead of reasoning about limits yourself.
 
 ## 1. Install (once)
 
 ```bash
-pip install "git+https://github.com/AagamS06/coi-lint.git"
+pip install "coi-lint[pdf] @ git+https://github.com/AagamS06/coi-lint.git"   # add ,ocr (and install Tesseract) for scanned PDFs
 coi-lint --version
 ```
 
@@ -39,10 +39,11 @@ coverages:
     waiver_of_subrogation: true
 ```
 
-**Certificate (JSON).** PDF input isn't built yet (it's on the roadmap), so read the certificate yourself and write the normalised JSON. Use the exact shape of `examples/cert_sample.json`: `insured`, `producer`, `holder`, `issued`, `description`, and `coverages[]` with `kind`, `policy_number`, `effective`, `expires` (YYYY-MM-DD), `limits`, `additional_insured`, `waiver_of_subrogation`.
+**Certificate (PDF or JSON).** Pass a PDF straight to `check`, or run `coi-lint extract cert.pdf` first to see what was read. Extraction uses a field map (`--fieldmap`); the bundled one only matches the repo's fictional sample layout, so for real certificates either write a field map (copy `src/coi_lint/fieldmaps/sample.yaml`) or read the certificate yourself and write JSON in the shape of `examples/cert_sample.json`: `insured`, `producer`, `holder`, `issued`, `description`, and `coverages[]` with `kind`, `policy_number`, `effective`, `expires` (YYYY-MM-DD), `limits`, `additional_insured`, `waiver_of_subrogation`.
 
 - Copy values exactly as printed. If a field is unreadable or missing, leave it out rather than guess; the tool will then report it as missing.
-- Show the user the JSON you extracted and ask them to confirm it before you rely on the verdict.
+- COI009 means a field couldn't be read from the PDF, and COI010 means it was read by OCR. In both cases, show the user the extracted values and ask them to confirm before you rely on the verdict.
+- Optional extras: `--waivers waivers.yaml` (known exceptions with an expiry date), `--pack pack.yaml` (extra YAML rules), or `extends:` / `packs:` / `insured_overrides:` inside the requirements file.
 
 ## 3. Run it
 
@@ -58,7 +59,8 @@ JSON output contract:
 
 ```json
 {"insured": "...", "requirements": "...", "verdict": "DEFICIENT | COMPLIANT_WITH_WARNINGS | COMPLIANT",
- "findings": [{"rule": "COI005", "severity": "fail", "coverage": "umbrella", "message": "..."}]}
+ "findings": [{"rule": "COI005", "severity": "fail | warn | pass | waived", "coverage": "umbrella",
+               "message": "...", "fix": "what to ask the broker for", "waiver": "reason if waived"}]}
 ```
 
 ## 3b. Track renewals across many certificates
@@ -76,9 +78,20 @@ coi-lint renewals certs/ --format json                      # {"today","within_d
 
 Paths can be files and/or folders (searched recursively). `window` is `expired`, `30`, `60`, `90` or `later`. Exit codes: `0` nothing expired, `1` at least one shown policy has already expired, `2` bad input. Suggest the `.ics` file when the user wants to stop chasing renewals by hand: importing it into their calendar gives them reminders 90, 60 and 30 days before each expiry. Re-importing an updated file updates events (stable UIDs) instead of duplicating them.
 
+## 3c. Whole project, and automation
+
+```bash
+coi-lint report certs/ --rules requirements.yaml --format md            # summary + table; also html | csv | json; --out FILE
+coi-lint waivers waivers.yaml                                            # which rules get waived most
+coi-lint explain COI007                                                  # plain-English why + fix for any rule (add --rules to include packs)
+coi-lint watch-inbox --host imap.gmail.com --user ME --password-env VAR --rules requirements.yaml --once
+```
+
+`watch-inbox` checks emailed certificates and saves reply drafts; it never sends. Only suggest it when the user wants automation, and remind them it needs an app password in an environment variable. Never ask them to paste the password into the chat.
+
 ## 4. Explain the result
 
-For `check`: lead with the verdict, then list the failures first, then the warnings. Quote each finding's message and rule id. For `renewals`: lead with anything expired, then the 30-day window, then the rest, and offer the calendar export and broker drafts.
+For `check`: lead with the verdict, then list the failures first, then the warnings, each with its `fix`. Quote each finding's message and rule id. Mention waived findings and their reasons briefly. Use `coi-lint explain <rule>` rather than paraphrasing from memory. For `renewals`: lead with anything expired, then the 30-day window, then the rest, and offer the calendar export and broker drafts.
 
 | Rule | Meaning |
 |------|---------|
@@ -90,9 +103,13 @@ For `check`: lead with the verdict, then list the failures first, then the warni
 | COI006 | Additional insured not marked |
 | COI007 | Waiver of subrogation not marked |
 | COI008 | Description of operations doesn't mention the required wording |
+| COI009 | A field couldn't be read from the PDF (never guessed) |
+| COI010 | Read from a scanned image by OCR: verify the values (warn) |
+| other ids | Rule-pack rules: run `coi-lint explain <id> --rules <requirements file>` |
 
 ## 5. Boundaries
 
 - coi-lint checks the user's own requirements. It doesn't judge whether coverage is *adequate*. Don't give insurance or legal advice; suggest confirming with their broker or contract manager.
-- Letters (deficiency and renewal requests) are drafts. Never send them on the user's behalf without their explicit go-ahead.
+- Letters (deficiency and renewal requests) and inbox replies are drafts. Never send them on the user's behalf without their explicit go-ahead.
+- Don't add or extend waivers on your own: a waiver is the user's decision, with their reason and an expiry date.
 - Certificates contain business and personal data. Keep them local, and don't commit real certificates to any repo.

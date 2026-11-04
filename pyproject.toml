@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "coi-lint"
-version = "0.2.0"
+version = "0.3.0"
 description = "Lint certificates of insurance (COIs) against your project's insurance requirements."
 readme = "README.md"
 license = { text = "MIT" }
@@ -12,8 +12,9 @@ requires-python = ">=3.10"
 dependencies = ["PyYAML>=6.0"]
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "ruff>=0.5"]
+dev = ["pytest>=8", "ruff>=0.5", "reportlab>=4.0", "jsonschema>=4.0"]
 pdf = ["pypdf>=4.2", "pdfplumber>=0.11"]
+ocr = ["pypdf>=4.2", "pdfplumber>=0.11", "pytesseract>=0.3.10"]   # also needs the Tesseract program installed
 
 [project.scripts]
 coi-lint = "coi_lint.cli:main"
@@ -21,9 +22,16 @@ coi-lint = "coi_lint.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+coi_lint = ["fieldmaps/*.yaml"]
+
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 120
+
+[tool.ruff.lint]
+# explicit rule set so every ruff version gives the same result
+select = ["E4", "E7", "E9", "F", "UP", "RUF100", "DTZ", "TRY004"]

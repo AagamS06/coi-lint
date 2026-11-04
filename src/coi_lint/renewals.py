@@ -7,7 +7,6 @@ Pure functions: the caller passes `today`, so results are reproducible.
 
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
@@ -43,26 +42,11 @@ class Renewal:
         return "later"
 
 
-def load_certificates(paths: list[Path]) -> list[Certificate]:
-    """Load certificates from JSON files and/or folders of JSON files (searched recursively)."""
-    files: list[Path] = []
-    for p in paths:
-        if p.is_dir():
-            files.extend(sorted(p.rglob("*.json")))
-        elif p.is_file():
-            files.append(p)
-        else:
-            raise ValueError(f"{p} does not exist")
-    if not files:
-        raise ValueError("no certificate JSON files found")
-    certs = []
-    for f in files:
-        try:
-            data = json.loads(f.read_text())
-        except (OSError, json.JSONDecodeError) as exc:
-            raise ValueError(f"certificate {f} is malformed: {exc}") from exc
-        certs.append(certificate_from_dict(data, source=str(f)))
-    return certs
+def load_certificates(paths: list[Path], fieldmap: dict | None = None) -> list[Certificate]:
+    """Load certificates from JSON/PDF files and/or folders of them (searched recursively)."""
+    from .extract import load_documents
+
+    return [certificate_from_dict(d, source=str(d.get("source", ""))) for d in load_documents(paths, fieldmap)]
 
 
 def collect(certs: list[Certificate], today: date, kinds: set[str] | None = None) -> list[Renewal]:

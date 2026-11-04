@@ -1,0 +1,35 @@
+# Copy to .github/workflows/coi-check.yml in a repo where you keep certificates (JSON or PDF in certs/).
+# Every push checks them, writes the report into the job summary, and publishes the HTML report
+# to GitHub Pages (Settings → Pages → Source: GitHub Actions). Free for public repositories.
+name: coi-check
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 21 * * 0"      # weekly, so expiring policies show up even when nothing changes
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: AagamS06/coi-lint@v0.3.0
+        with:
+          paths: certs
+          rules: requirements.yaml
+          waivers: waivers.yaml
+          report: site/index.html
+          fail-on-deficient: "false"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+  deploy:
+    needs: check
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/deploy-pages@v4

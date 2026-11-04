@@ -1,0 +1,39 @@
+# Example rule pack: extra checks a cautious general contractor *might* add.
+# The thresholds are ILLUSTRATIVE, not legal or industry requirements. Copy this file and set
+# them from your own contracts. Checks available: coverage_present, limit_min, flag,
+# valid_for_days, description_contains, holder_contains, policy_number_present.
+pack: strict-gc-example
+description: Illustrative extra checks for larger jobs.
+rules:
+  - id: SGC001
+    title: General aggregate of at least $4M on larger jobs
+    severity: fail
+    coverage: general_liability
+    check: limit_min
+    limit: general_aggregate
+    min: 4000000
+    why: On bigger jobs several claims in one policy year can use up a smaller aggregate.
+    fix: Ask the broker to raise the general liability aggregate to at least $4,000,000.
+  - id: SGC002
+    title: General liability valid for at least 60 more days
+    severity: warn
+    coverage: general_liability
+    check: valid_for_days
+    days: 60
+    why: A certificate that lapses mid-job means chasing a renewal while work is underway.
+    fix: Ask for confirmation of the renewal, or a certificate for the renewed policy.
+  - id: SGC003
+    title: Additional insured on automobile liability
+    severity: warn
+    coverage: auto
+    check: flag
+    flag: additional_insured
+    why: Some contracts also require additional-insured status on the auto policy for site deliveries.
+    fix: Ask for an additional-insured endorsement on the automobile policy.
+  - id: SGC004
+    title: Policy number shown for workers' compensation
+    severity: fail
+    coverage: workers_comp
+    check: policy_number_present
+    why: Without a policy number the cover can't be verified with the insurer.
+    fix: Ask the broker to show the workers' compensation policy number.

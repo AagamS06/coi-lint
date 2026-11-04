@@ -1,0 +1,9 @@
+# Builds on requirements.yaml (extends), adds the example rule pack, and tweaks one insured.
+extends: requirements.yaml
+name: Harbor St Fit-out — strict profile
+warn_days: 45
+packs:
+  - ../packs/strict-gc-example.yaml
+insured_overrides:
+  Coastal Steel:            # matched case-insensitively against the insured's name
+    warn_days: 60

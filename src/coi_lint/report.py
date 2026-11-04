@@ -10,23 +10,34 @@ from .models import Certificate, Requirements
 from .renewals import Renewal
 from .rules import Finding, verdict
 
-ICON = {"pass": "✓", "warn": "!", "fail": "✗"}
-COLOR = {"pass": "\033[32m", "warn": "\033[33m", "fail": "\033[31m"}
+ICON = {"pass": "✓", "warn": "!", "fail": "✗", "waived": "~"}
+COLOR = {"pass": "\033[32m", "warn": "\033[33m", "fail": "\033[31m", "waived": "\033[36m"}
+DIM = "\033[2m"
 RESET = "\033[0m"
 
 
-def text(cert: Certificate, req: Requirements, findings: list[Finding], color: bool = True) -> str:
+def counts(findings: list[Finding]) -> dict[str, int]:
+    return {k: sum(f.severity == k for f in findings) for k in ("fail", "warn", "waived", "pass")}
+
+
+def text(cert: Certificate, req: Requirements, findings: list[Finding], color: bool = True, fixes: bool = True) -> str:
     def c(sev: str, s: str) -> str:
         return f"{COLOR[sev]}{s}{RESET}" if color else s
+
+    def dim(s: str) -> str:
+        return f"{DIM}{s}{RESET}" if color else s
 
     lines = [f"coi-lint · {cert.insured} → {req.name}", ""]
     for f in findings:
         lines.append(f"  {c(f.severity, ICON[f.severity])} {f.rule}  {f.message}")
-    fails = sum(f.severity == "fail" for f in findings)
-    warns = sum(f.severity == "warn" for f in findings)
-    v = verdict(findings)
-    sev = "fail" if fails else ("warn" if warns else "pass")
-    lines += ["", c(sev, f"{v}  ({fails} fail, {warns} warn, {len(findings) - fails - warns} pass)")]
+        if fixes and f.fix and f.severity in ("fail", "warn"):
+            lines.append(dim(f"           fix: {f.fix}"))
+        if f.waiver:
+            lines.append(dim(f"           waived: {f.waiver}"))
+    n = counts(findings)
+    sev = "fail" if n["fail"] else ("warn" if n["warn"] else "pass")
+    waived = f", {n['waived']} waived" if n["waived"] else ""
+    lines += ["", c(sev, f"{verdict(findings)}  ({n['fail']} fail, {n['warn']} warn{waived}, {n['pass']} pass)")]
     return "\n".join(lines)
 
 
@@ -41,10 +52,10 @@ def as_json(cert: Certificate, req: Requirements, findings: list[Finding]) -> st
 
 def letter(cert: Certificate, req: Requirements, findings: list[Finding]) -> str:
     """Draft a deficiency request to the insured's broker. A human sends it, never the tool."""
-    issues = [f for f in findings if f.severity != "pass"]
+    issues = [f for f in findings if f.severity in ("fail", "warn")]
     if not issues:
         return f"No deficiencies found for {cert.insured} against {req.name}."
-    body = "\n".join(f"  - {f.message} [{f.rule}]" for f in issues)
+    body = "\n".join(f"  - {f.message} [{f.rule}]" + (f"\n    Requested: {f.fix}" if f.fix else "") for f in issues)
     return (
         f"To: {cert.producer or 'the producer listed on the certificate'}\n"
         f"Re: Certificate of insurance for {cert.insured} ({req.name})\n\n"

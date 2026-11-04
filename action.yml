@@ -1,0 +1,42 @@
+# Reusable GitHub Action: check every certificate in a repo on each push/PR and publish a report.
+# Free on public repositories. Example workflow: docs/examples/coi-check-workflow.yml
+name: coi-lint
+description: Check certificates of insurance against your requirements (deterministic, no AI, no API keys).
+branding:
+  icon: shield
+  color: yellow
+inputs:
+  paths:
+    description: Space-separated certificate files/folders (JSON or PDF)
+    default: certs
+  rules:
+    description: Requirements file
+    required: true
+  waivers:
+    description: Optional waivers file
+    default: ""
+  report:
+    description: Where to write the HTML report
+    default: coi-report.html
+  fail-on-deficient:
+    description: Fail the job if any certificate is deficient
+    default: "true"
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - shell: bash
+      run: pip install "${{ github.action_path }}[pdf]"
+    - shell: bash
+      run: |
+        set +e
+        W=""; [ -n "${{ inputs.waivers }}" ] && W="--waivers ${{ inputs.waivers }}"
+        coi-lint report ${{ inputs.paths }} --rules "${{ inputs.rules }}" $W --format md > coi-report.md
+        rc=$?
+        coi-lint report ${{ inputs.paths }} --rules "${{ inputs.rules }}" $W --format html --out "${{ inputs.report }}" > /dev/null
+        cat coi-report.md >> "$GITHUB_STEP_SUMMARY"
+        if [ "${{ inputs.fail-on-deficient }}" = "true" ] && [ $rc -eq 1 ]; then exit 1; fi
+        [ $rc -eq 2 ] && exit 2
+        exit 0

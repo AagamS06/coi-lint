@@ -1,0 +1,24 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "examples/cert_sample.json",
+        "examples/certs/*.json",
+        "certs/**/*.json"
+      ],
+      "url": "./schemas/certificate.schema.json"
+    }
+  ],
+  "yaml.schemas": {
+    "./schemas/requirements.schema.json": [
+      "examples/requirements*.yaml",
+      "requirements*.yaml"
+    ],
+    "./schemas/waivers.schema.json": [
+      "**/waivers*.yaml"
+    ],
+    "./schemas/pack.schema.json": [
+      "packs/*.yaml"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+# Lets other repos run coi-lint as a pre-commit hook on certificate JSON files:
+#   - repo: https://github.com/AagamS06/coi-lint
+#     rev: v0.3.0
+#     hooks:
+#       - id: coi-lint
+#         args: [--rules, requirements.yaml]
+- id: coi-lint
+  name: coi-lint (certificates of insurance)
+  entry: scripts/precommit.sh
+  language: python
+  files: '(^|/)certs/.*\.json$'

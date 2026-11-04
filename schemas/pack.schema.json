@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/AagamS06/coi-lint/main/schemas/pack.schema.json",
+  "title": "coi-lint rule pack",
+  "type": "object",
+  "required": [
+    "rules"
+  ],
+  "properties": {
+    "pack": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "check"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9]{1,9}\\d{3}$",
+            "not": {
+              "pattern": "^COI"
+            }
+          },
+          "title": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "fail",
+              "warn"
+            ]
+          },
+          "coverage": {
+            "type": "string",
+            "description": "general_liability | auto | umbrella | workers_comp, or your own kind",
+            "examples": [
+              "general_liability",
+              "auto",
+              "umbrella",
+              "workers_comp"
+            ]
+          },
+          "check": {
+            "enum": [
+              "coverage_present",
+              "limit_min",
+              "flag",
+              "valid_for_days",
+              "description_contains",
+              "holder_contains",
+              "policy_number_present"
+            ]
+          },
+          "limit": {
+            "type": "string"
+          },
+          "min": {
+            "type": "integer"
+          },
+          "flag": {
+            "enum": [
+              "additional_insured",
+              "waiver_of_subrogation"
+            ]
+          },
+          "days": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "text": {
+            "type": "string"
+          },
+          "why": {
+            "type": "string"
+          },
+          "fix": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

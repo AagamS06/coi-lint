@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/AagamS06/coi-lint/main/schemas/requirements.schema.json",
+  "title": "coi-lint requirements",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "holder": {
+      "type": "string"
+    },
+    "warn_days": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 30
+    },
+    "extends": {
+      "type": "string",
+      "description": "Another requirements file to build on (relative path)"
+    },
+    "packs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Rule pack files (relative paths)"
+    },
+    "description_must_mention": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "insured_overrides": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      },
+      "description": "Insured-name substring \u2192 overrides"
+    },
+    "coverages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "kind"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "general_liability | auto | umbrella | workers_comp, or your own kind",
+            "examples": [
+              "general_liability",
+              "auto",
+              "umbrella",
+              "workers_comp"
+            ]
+          },
+          "min_limits": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Limit name \u2192 whole dollars, e.g. each_occurrence: 1000000"
+          },
+          "additional_insured": {
+            "type": "boolean"
+          },
+          "waiver_of_subrogation": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
