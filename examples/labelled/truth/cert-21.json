@@ -1,0 +1,54 @@
+{
+  "insured": "Mill Street Drywall (fictional)",
+  "producer": "Placeholder Risk Partners (fictional)",
+  "holder": "Placeholder Property Trust",
+  "issued": "2026-10-12",
+  "description": "Works at Level 3, 45 Example Rd.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000211",
+      "effective": "2026-08-25",
+      "expires": "2027-08-25",
+      "limits": {
+        "each_occurrence": 1000000,
+        "general_aggregate": 4000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000212",
+      "effective": "2026-09-08",
+      "expires": "2027-09-08",
+      "limits": {
+        "combined_single_limit": 1000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000213",
+      "effective": "2026-10-10",
+      "expires": "2027-10-10",
+      "limits": {
+        "each_occurrence": 10000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000214",
+      "effective": "2026-07-13",
+      "expires": "2027-07-13",
+      "limits": {
+        "el_each_accident": 500000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    }
+  ]
+}

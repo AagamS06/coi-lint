@@ -10,3 +10,5 @@ build/
 # real certificates contain personal and business data: never commit them
 certs/
 private/
+# labelled accuracy set: PDFs are rendered from the committed labels by scripts/make_labelled_set.py
+examples/labelled/pdfs/

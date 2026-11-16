@@ -1,0 +1,43 @@
+{
+  "insured": "Highline Cranes (fictional)",
+  "producer": "Placeholder Risk Partners (fictional)",
+  "holder": "Placeholder Property Trust",
+  "issued": "2026-10-19",
+  "description": "Maintenance at Unit 7, 9 Placeholder Ave.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000191",
+      "effective": "2026-07-20",
+      "expires": "2027-07-20",
+      "limits": {
+        "each_occurrence": 2000000,
+        "general_aggregate": 10000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000192",
+      "effective": "2026-04-30",
+      "expires": "2027-04-30",
+      "limits": {
+        "each_occurrence": 10000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000193",
+      "effective": "2026-07-06",
+      "expires": "2027-07-06",
+      "limits": {
+        "el_each_accident": 500000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    }
+  ]
+}

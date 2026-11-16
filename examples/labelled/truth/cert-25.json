@@ -1,0 +1,54 @@
+{
+  "insured": "Old Quarry Masonry (fictional)",
+  "producer": "Placeholder Risk Partners (fictional)",
+  "holder": "Placeholder Property Trust",
+  "issued": "2026-10-22",
+  "description": "Installation at Riverside Stage 2.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000251",
+      "effective": "2026-09-22",
+      "expires": "2027-09-22",
+      "limits": {
+        "each_occurrence": 2000000,
+        "general_aggregate": 4000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000252",
+      "effective": "2026-09-15",
+      "expires": "2027-09-15",
+      "limits": {
+        "combined_single_limit": 2000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000253",
+      "effective": "2026-09-16",
+      "expires": "2027-09-16",
+      "limits": {
+        "each_occurrence": 10000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000254",
+      "effective": "2026-05-28",
+      "expires": "2027-05-28",
+      "limits": {
+        "el_each_accident": 1000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    }
+  ]
+}

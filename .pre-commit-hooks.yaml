@@ -1,6 +1,6 @@
 # Lets other repos run coi-lint as a pre-commit hook on certificate JSON files:
 #   - repo: https://github.com/AagamS06/coi-lint
-#     rev: v0.3.0
+#     rev: v0.4.0
 #     hooks:
 #       - id: coi-lint
 #         args: [--rules, requirements.yaml]

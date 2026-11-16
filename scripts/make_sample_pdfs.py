@@ -39,7 +39,9 @@ def lines(cert: dict) -> list[tuple[str, str | None, str]]:
             ("Description of operations:", "description", cert["description"])]
     by_kind = {c["kind"]: c for c in cert["coverages"]}
     for kind, head, ab in KINDS:
-        c = by_kind[kind]
+        c = by_kind.get(kind)
+        if c is None:        # coverage not on this certificate: leave its section out
+            continue
         rows.append((f"{head}  Policy: {c['policy_number']}  Effective: {c['effective']}  Expires: {c['expires']}",
                      None, ""))
         parts = [f"{label(k)}: ${v:,}" for k, v in c["limits"].items()]
@@ -72,7 +74,9 @@ def fillable(cert: dict, path: Path) -> None:
         y -= 22
     by_kind = {k["kind"]: k for k in cert["coverages"]}
     for kind, head, ab in KINDS:
-        cov = by_kind[kind]
+        cov = by_kind.get(kind)
+        if cov is None:
+            continue
         c.drawString(40, y, head)
         y -= 18
         x = 40

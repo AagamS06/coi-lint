@@ -7,7 +7,8 @@ Three layers, tried in order:
 
 Which field holds what is described in a field map (YAML), so new certificate layouts need a
 new map, not new code. coi-lint never guesses: anything it can't read is listed in
-`_unreadable`, and `check` turns that into a COI009 finding.
+`_unreadable`, and `check` turns that into a COI009 finding. A coverage section with no field read at
+all is treated as not on the certificate (COI002 flags it if the requirements need it).
 
 Field map format (see src/coi_lint/fieldmaps/sample.yaml):
 
@@ -146,6 +147,10 @@ def extract(pdf: Path, fieldmap: dict[str, Any]) -> dict[str, Any]:
             except ValueError:
                 unreadable.append(path)
 
+    found = out.get("_cov", {})
+    # A coverage with no field read at all is not on the certificate (COI002 reports it if it is required).
+    # Only coverages that were partly read are unreadable: those are never guessed.
+    unreadable = [p for p in unreadable if not (p.startswith("coverages.") and p.split(".")[1] not in found)]
     covs = []
     for kind, cov in out.pop("_cov", {}).items():
         if "effective" in cov and "expires" in cov:

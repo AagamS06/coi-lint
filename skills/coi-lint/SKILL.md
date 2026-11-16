@@ -1,6 +1,6 @@
 ---
 name: coi-lint
-description: Check a certificate of insurance (COI, as a PDF or JSON) against a project's insurance requirements with the coi-lint CLI, explain every finding and its fix, draft a deficiency letter, record waivers, build a project compliance report, and track upcoming renewals across many certificates (expiry list, calendar reminders, renewal-request drafts). Use when someone shares a COI or its details and asks whether it meets a contract, subcontract, lease or vendor agreement, which policies are expiring or need chasing, or what to ask the broker to fix.
+description: Check a certificate of insurance (COI, as a PDF or JSON) against a project's insurance requirements with the coi-lint CLI, explain every finding and its fix, draft a deficiency letter, record waivers, build a project compliance report, measure how accurately PDFs are being read, and track upcoming renewals across many certificates (expiry list, calendar reminders, renewal-request drafts). Use when someone shares a COI or its details and asks whether it meets a contract, subcontract, lease or vendor agreement, which policies are expiring or need chasing, or what to ask the broker to fix.
 ---
 
 # coi-lint
@@ -42,6 +42,8 @@ coverages:
 **Certificate (PDF or JSON).** Pass a PDF straight to `check`, or run `coi-lint extract cert.pdf` first to see what was read. Extraction uses a field map (`--fieldmap`); the bundled one only matches the repo's fictional sample layout, so for real certificates either write a field map (copy `src/coi_lint/fieldmaps/sample.yaml`) or read the certificate yourself and write JSON in the shape of `examples/cert_sample.json`: `insured`, `producer`, `holder`, `issued`, `description`, and `coverages[]` with `kind`, `policy_number`, `effective`, `expires` (YYYY-MM-DD), `limits`, `additional_insured`, `waiver_of_subrogation`.
 
 - Copy values exactly as printed. If a field is unreadable or missing, leave it out rather than guess; the tool will then report it as missing.
+- Before relying on a field map for a batch of real certificates, check it: label a few of the user's certificates by hand as JSON (`NAME.json` next to `NAME.pdf`), run `coi-lint accuracy <folder> --min-accuracy 0.95`, and report the accuracy and any misses (expected vs got). Use `--format json` to parse. Exit `1` means below the bar: fix the field map or read those certificates yourself.
+- A coverage that isn't on the certificate at all is reported as missing (COI002), not unreadable.
 - COI009 means a field couldn't be read from the PDF, and COI010 means it was read by OCR. In both cases, show the user the extracted values and ask them to confirm before you rely on the verdict.
 - Optional extras: `--waivers waivers.yaml` (known exceptions with an expiry date), `--pack pack.yaml` (extra YAML rules), or `extends:` / `packs:` / `insured_overrides:` inside the requirements file.
 

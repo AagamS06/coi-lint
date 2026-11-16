@@ -14,12 +14,13 @@
 - Waivers need an `until` date; expired waivers are flagged on the finding.
 - Exit codes 0 compliant / 1 deficient / 2 input error → CI-friendly.
 - Fictional data only; never bundle copyrighted certificate forms; letters are drafts.
+- Accuracy (v0.4.0): labels are plain certificate JSON (schema-valid), PDFs are rendered from them and git-ignored (keeps the repo small, OCR scans are ~300 KB each); CI gates at 95%. Unread values never score as correct. A coverage with no field read at all = not on the certificate (COI002), not COI009. OCR misses (e.g. 0 read as O) are reported, not auto-corrected: correcting would be guessing.
 - Renewals (v0.2.0, from LinkedIn feedback by someone in compliance): reminder windows fixed at 90/60/30 days; .ics leaves out already-expired policies and uses stable UIDs so re-imports update events.
 
 ## Status
-- **Done:** docs set; Phase 0 scaffold (model, 8 rules, text/json/letter output, examples, 4 tests passing); launch video, social cut and cover in docs/media; agent skill in skills/coi-lint/SKILL.md; v0.1.0 release; v0.2.0 renewals; v0.3.0 PDF extract (forms/text/OCR), fixes + explain, waivers, rule packs, extends/overrides, project report (md/html/csv/json), inbox watcher, Slack, JSON Schemas, CI, GitHub Action, pre-commit (39 tests).
+- **Done:** docs set; Phase 0 scaffold (model, 8 rules, text/json/letter output, examples, 4 tests passing); launch video, social cut and cover in docs/media; agent skill in skills/coi-lint/SKILL.md; v0.1.0 release; v0.2.0 renewals; v0.3.0 PDF extract (forms/text/OCR), fixes + explain, waivers, rule packs, extends/overrides, project report (md/html/csv/json), inbox watcher, Slack, JSON Schemas, CI, GitHub Action, pre-commit (39 tests); v0.4.0 `coi-lint accuracy` + 30-certificate labelled set (99.9%: 755/756 fields; the miss is OCR), CI accuracy gate, absent-coverage fix (46 tests).
 - **In progress:** —
-- **Next:** make the repo public; field maps for real certificate layouts (fictional values); labelled extraction-accuracy set.
+- **Next:** field maps for real certificate layouts (fictional values), each scored with `coi-lint accuracy`; Phase 2 integrity signals + extraction timeouts.
 - **Backlog:** configurable reminder windows, integrity signals, extraction timeouts, PyPI, MCP/tool wrapper, more rule packs.
 
 ## Open questions
@@ -31,3 +32,4 @@
 [PRD](PRD.md) · [Architecture](Architecture.md) · [Rules](Rules.md) · [Phases](Phases.md) · [Design](Design.md) · [CHANGELOG](CHANGELOG.md) · [README](README.md)
 
 Run: `pip install -e ".[dev,pdf,ocr]" && pytest -q && coi-lint check examples/pdfs/northside-flat.pdf --rules examples/requirements.yaml --waivers examples/waivers.yaml`
+Accuracy: `python scripts/make_labelled_set.py && coi-lint accuracy examples/labelled/pdfs --min-accuracy 0.95`

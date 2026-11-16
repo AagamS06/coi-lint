@@ -46,6 +46,7 @@ Single-process, offline Python CLI + importable library. No server, no database.
 | Extract | `extract.py`, `fieldmaps/*.yaml` | PDF → certificate dict: form fields (pypdf) → text (pdfplumber) → OCR (Tesseract); size/page limits |
 | Project | `project.py` | project summary → Markdown / HTML / CSV / JSON |
 | Inbox | `inbox.py` | IMAP watcher → check → draft reply via IMAP APPEND (never sends) |
+| Accuracy | `accuracy.py` | Scores extraction field by field against labelled certificates (`coi-lint accuracy`); run in CI on `examples/labelled/` |
 | Notify | `notify.py` | Slack incoming webhook (URL from an env var) |
 | Integrity (P2) | `integrity.py` | PDF metadata and structure signals (planned) |
 | Renewals | `renewals.py` | load many certificates, days left, 30/60/90-day windows |
@@ -69,6 +70,7 @@ coi-lint/
 │   ├── fieldmaps/         # field maps (YAML)
 │   ├── project.py         # project report
 │   ├── inbox.py           # IMAP watcher
+│   ├── accuracy.py        # extraction accuracy vs labelled certificates
 │   ├── notify.py          # Slack webhook
 │   ├── renewals.py        # renewal tracking across certificates
 │   ├── export.py          # .ics calendar, renewals JSON, renewal letters

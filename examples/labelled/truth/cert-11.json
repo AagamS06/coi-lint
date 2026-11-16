@@ -1,0 +1,43 @@
+{
+  "insured": "Granite & Co Stonework (fictional)",
+  "producer": "Placeholder Risk Partners (fictional)",
+  "holder": "Example Builders LLC",
+  "issued": "2026-07-23",
+  "description": "Works at Level 3, 45 Example Rd.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000111",
+      "effective": "2026-04-16",
+      "expires": "2027-04-16",
+      "limits": {
+        "each_occurrence": 2000000,
+        "general_aggregate": 2000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000112",
+      "effective": "2026-03-18",
+      "expires": "2027-03-18",
+      "limits": {
+        "combined_single_limit": 1000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000113",
+      "effective": "2026-03-13",
+      "expires": "2027-03-13",
+      "limits": {
+        "each_occurrence": 5000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    }
+  ]
+}

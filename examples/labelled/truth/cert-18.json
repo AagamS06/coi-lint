@@ -1,0 +1,43 @@
+{
+  "insured": "Coral Bay Pools (fictional)",
+  "producer": "Demo Cover Group (fictional)",
+  "holder": "Placeholder Property Trust",
+  "issued": "2026-09-25",
+  "description": "Installation at Level 3, 45 Example Rd.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000181",
+      "effective": "2026-03-19",
+      "expires": "2027-03-19",
+      "limits": {
+        "each_occurrence": 2000000,
+        "general_aggregate": 2000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000182",
+      "effective": "2026-07-25",
+      "expires": "2027-07-25",
+      "limits": {
+        "each_occurrence": 5000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000183",
+      "effective": "2026-05-18",
+      "expires": "2027-05-18",
+      "limits": {
+        "el_each_accident": 500000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    }
+  ]
+}

@@ -23,9 +23,10 @@
 - [x] Renewal-request drafts grouped by broker (`renewals --format letter`) (v0.2.0)
 - [x] Compliance sweep over a folder + CSV register: `coi-lint report --format csv` (v0.3.0)
 - [ ] Field maps for common real-world certificate layouts (community; fictional values only)
-- [ ] 30 synthetic labelled certificates; extraction accuracy ≥ 95%
+- [x] 30 synthetic labelled certificates; extraction accuracy ≥ 95% (v0.4.0: `coi-lint accuracy`, 99.9% on `examples/labelled/`, gated in CI)
 
 **Exit criteria:** a 100-file sweep runs in < 10 s with ≥ 95% field accuracy on the labelled set.
+*Status (v0.4.0):* accuracy ✅ 99.9%; a 100-file sweep of fillable/flat PDFs takes ~1 s ✅, scanned PDFs need ~1 s each for OCR. Open: real-world field maps.
 
 ## Phase 2 — Hardening and trust
 **Goal:** make results safe to rely on.

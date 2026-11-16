@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "coi-lint"
-version = "0.3.0"
+version = "0.4.0"
 description = "Lint certificates of insurance (COIs) against your project's insurance requirements."
 readme = "README.md"
 license = { text = "MIT" }

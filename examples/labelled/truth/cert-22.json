@@ -1,0 +1,32 @@
+{
+  "insured": "Copperleaf Solar (fictional)",
+  "producer": "Sample Insurance Agency (fictional)",
+  "holder": "Sample Developments Inc",
+  "issued": "2026-01-19",
+  "description": "Installation at 120 Harbor St fit-out.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000221",
+      "effective": "2025-08-08",
+      "expires": "2026-08-08",
+      "limits": {
+        "each_occurrence": 1000000,
+        "general_aggregate": 4000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000222",
+      "effective": "2025-09-05",
+      "expires": "2026-09-05",
+      "limits": {
+        "each_occurrence": 1000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "insured": "Fernhill Waterproofing (fictional)",
+  "producer": "Example Brokers Pty (fictional)",
+  "holder": "Sample Developments Inc",
+  "issued": "2026-09-09",
+  "description": "Maintenance at Unit 7, 9 Placeholder Ave.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000301",
+      "effective": "2026-04-10",
+      "expires": "2027-04-10",
+      "limits": {
+        "each_occurrence": 2000000,
+        "general_aggregate": 4000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000302",
+      "effective": "2026-07-25",
+      "expires": "2027-07-25",
+      "limits": {
+        "combined_single_limit": 500000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    }
+  ]
+}

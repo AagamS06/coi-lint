@@ -1,0 +1,43 @@
+{
+  "insured": "Eastwood Tiling (fictional)",
+  "producer": "Sample Insurance Agency (fictional)",
+  "holder": "Example Builders LLC",
+  "issued": "2026-04-08",
+  "description": "Maintenance at 120 Harbor St fit-out.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000171",
+      "effective": "2025-10-15",
+      "expires": "2026-10-15",
+      "limits": {
+        "each_occurrence": 5000000,
+        "general_aggregate": 4000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000172",
+      "effective": "2026-02-09",
+      "expires": "2027-02-09",
+      "limits": {
+        "combined_single_limit": 500000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000173",
+      "effective": "2025-12-23",
+      "expires": "2026-12-23",
+      "limits": {
+        "each_occurrence": 5000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    }
+  ]
+}

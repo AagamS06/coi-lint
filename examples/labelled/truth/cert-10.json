@@ -1,0 +1,54 @@
+{
+  "insured": "Red Cedar Landscapes (fictional)",
+  "producer": "Example Brokers Pty (fictional)",
+  "holder": "Example Builders LLC",
+  "issued": "2026-08-15",
+  "description": "Maintenance at Level 3, 45 Example Rd.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000101",
+      "effective": "2026-02-15",
+      "expires": "2027-02-15",
+      "limits": {
+        "each_occurrence": 1000000,
+        "general_aggregate": 10000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000102",
+      "effective": "2026-07-02",
+      "expires": "2027-07-02",
+      "limits": {
+        "combined_single_limit": 500000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000103",
+      "effective": "2026-08-03",
+      "expires": "2027-08-03",
+      "limits": {
+        "each_occurrence": 5000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000104",
+      "effective": "2026-04-14",
+      "expires": "2027-04-14",
+      "limits": {
+        "el_each_accident": 500000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    }
+  ]
+}

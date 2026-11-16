@@ -1,0 +1,43 @@
+{
+  "insured": "Ironbark Concrete (fictional)",
+  "producer": "Demo Cover Group (fictional)",
+  "holder": "Placeholder Property Trust",
+  "issued": "2026-08-24",
+  "description": "Maintenance at Level 3, 45 Example Rd.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000071",
+      "effective": "2026-07-05",
+      "expires": "2027-07-05",
+      "limits": {
+        "each_occurrence": 1000000,
+        "general_aggregate": 2000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000072",
+      "effective": "2026-06-17",
+      "expires": "2027-06-17",
+      "limits": {
+        "combined_single_limit": 2000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000073",
+      "effective": "2026-08-23",
+      "expires": "2027-08-23",
+      "limits": {
+        "el_each_accident": 1000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "insured": "Parramatta Paving (fictional)",
+  "producer": "Demo Cover Group (fictional)",
+  "holder": "Placeholder Property Trust",
+  "issued": "2026-01-17",
+  "description": "Installation at 120 Harbor St fit-out.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000031",
+      "effective": "2025-12-25",
+      "expires": "2026-12-25",
+      "limits": {
+        "each_occurrence": 2000000,
+        "general_aggregate": 10000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000032",
+      "effective": "2025-10-01",
+      "expires": "2026-10-01",
+      "limits": {
+        "each_occurrence": 10000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000033",
+      "effective": "2025-09-14",
+      "expires": "2026-09-14",
+      "limits": {
+        "el_each_accident": 1000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    }
+  ]
+}

@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: AagamS06/coi-lint@v0.3.0
+      - uses: AagamS06/coi-lint@v0.4.0
         with:
           paths: certs
           rules: requirements.yaml

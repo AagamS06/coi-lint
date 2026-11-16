@@ -1,0 +1,43 @@
+{
+  "insured": "Northgate Roofing (fictional)",
+  "producer": "Sample Insurance Agency (fictional)",
+  "holder": "Sample Developments Inc",
+  "issued": "2026-03-06",
+  "description": "Works at Unit 7, 9 Placeholder Ave.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000011",
+      "effective": "2026-02-08",
+      "expires": "2027-02-08",
+      "limits": {
+        "each_occurrence": 1000000,
+        "general_aggregate": 10000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000012",
+      "effective": "2025-10-11",
+      "expires": "2026-10-11",
+      "limits": {
+        "combined_single_limit": 2000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000013",
+      "effective": "2025-11-01",
+      "expires": "2026-11-01",
+      "limits": {
+        "el_each_accident": 1000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    }
+  ]
+}

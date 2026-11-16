@@ -1,0 +1,32 @@
+{
+  "insured": "Wattle Joinery (fictional)",
+  "producer": "Example Brokers Pty (fictional)",
+  "holder": "Example Builders LLC",
+  "issued": "2026-07-01",
+  "description": "Maintenance at Level 3, 45 Example Rd.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000091",
+      "effective": "2026-06-25",
+      "expires": "2027-06-25",
+      "limits": {
+        "each_occurrence": 5000000,
+        "general_aggregate": 4000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000092",
+      "effective": "2026-04-09",
+      "expires": "2027-04-09",
+      "limits": {
+        "combined_single_limit": 500000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    }
+  ]
+}

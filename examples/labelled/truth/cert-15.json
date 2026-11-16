@@ -1,0 +1,54 @@
+{
+  "insured": "Bridgewater Painting (fictional)",
+  "producer": "Sample Insurance Agency (fictional)",
+  "holder": "Placeholder Property Trust",
+  "issued": "2026-08-29",
+  "description": "Installation at Level 3, 45 Example Rd.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000151",
+      "effective": "2026-05-26",
+      "expires": "2027-05-26",
+      "limits": {
+        "each_occurrence": 5000000,
+        "general_aggregate": 10000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000152",
+      "effective": "2026-06-16",
+      "expires": "2027-06-16",
+      "limits": {
+        "combined_single_limit": 1000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000153",
+      "effective": "2026-08-23",
+      "expires": "2027-08-23",
+      "limits": {
+        "each_occurrence": 5000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000154",
+      "effective": "2026-02-14",
+      "expires": "2027-02-14",
+      "limits": {
+        "el_each_accident": 500000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    }
+  ]
+}

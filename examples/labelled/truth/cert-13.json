@@ -1,0 +1,43 @@
+{
+  "insured": "Westside Demolition (fictional)",
+  "producer": "Example Brokers Pty (fictional)",
+  "holder": "Placeholder Property Trust",
+  "issued": "2026-10-16",
+  "description": "Maintenance at 120 Harbor St fit-out.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000131",
+      "effective": "2026-05-25",
+      "expires": "2027-05-25",
+      "limits": {
+        "each_occurrence": 2000000,
+        "general_aggregate": 10000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000132",
+      "effective": "2026-08-10",
+      "expires": "2027-08-10",
+      "limits": {
+        "each_occurrence": 1000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000133",
+      "effective": "2026-04-24",
+      "expires": "2027-04-24",
+      "limits": {
+        "el_each_accident": 500000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    }
+  ]
+}

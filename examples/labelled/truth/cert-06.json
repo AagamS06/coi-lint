@@ -1,0 +1,43 @@
+{
+  "insured": "Summit Fire Protection (fictional)",
+  "producer": "Demo Cover Group (fictional)",
+  "holder": "Example Builders LLC",
+  "issued": "2026-08-17",
+  "description": "Works at 120 Harbor St fit-out.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000061",
+      "effective": "2026-04-24",
+      "expires": "2027-04-24",
+      "limits": {
+        "each_occurrence": 1000000,
+        "general_aggregate": 4000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000062",
+      "effective": "2026-08-01",
+      "expires": "2027-08-01",
+      "limits": {
+        "combined_single_limit": 2000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000063",
+      "effective": "2026-07-24",
+      "expires": "2027-07-24",
+      "limits": {
+        "el_each_accident": 500000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    }
+  ]
+}

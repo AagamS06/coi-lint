@@ -6,7 +6,7 @@
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/license-MIT-F5B83D)
-![Status](https://img.shields.io/badge/version-v0.3.0-8A96A3)
+![Status](https://img.shields.io/badge/version-v0.4.0-8A96A3)
 ![Tests](https://img.shields.io/badge/tests-pytest-3FB97A)
 
 ## Launch video
@@ -42,6 +42,7 @@ The gaps it targets were observed in public descriptions of YC Summer/Fall 2026 
 | ✅ | **GitHub Action** + Pages example, **pre-commit hook**, **JSON Schemas** for editor autocomplete, Slack webhook | v0.3 |
 | ✅ | Renewal tracking (expired / 30 / 60 / 90 days), `.ics` reminders, renewal letters per broker | v0.2 |
 | ✅ | Terminal / JSON / deficiency-letter output; CI-friendly exit codes (0 ok, 1 deficient, 2 bad input) | v0.1 |
+| ✅ | **Extraction accuracy check**: `coi-lint accuracy` scores PDF reading field by field against labelled certificates; 30-certificate labelled set, gated in CI | v0.4 |
 | 🗺️ | Field maps for common real-world certificate layouts, integrity signals, PyPI | Planned |
 
 ## Check a certificate
@@ -83,6 +84,29 @@ coi-lint check certificate.pdf --rules requirements.yaml
 ```
 
 The bundled field map ([`src/coi_lint/fieldmaps/sample.yaml`](src/coi_lint/fieldmaps/sample.yaml)) matches the fictional sample layout in `examples/pdfs/`. For your own certificates, copy it and map their form-field names or text labels (`--fieldmap mine.yaml`). Anything coi-lint can't read becomes a **COI009** failure instead of a guess; scanned certificates get a **COI010** "verify the values" warning, because OCR can misread characters.
+
+## Measure extraction accuracy
+
+Before you trust a field map (the bundled one or your own), score it. A labelled set is a folder of PDFs plus, for each `NAME.pdf`, the exact certificate as `NAME.json` (next to it or in a sibling `truth/` folder). The repo ships 30 fictional labels in [`examples/labelled/truth/`](examples/labelled/truth/): 10 fillable, 10 flat and 10 scanned certificates, with different names, limits, dates, yes/no marks and missing coverages.
+
+```console
+$ python scripts/make_labelled_set.py          # render the 30 PDFs from the labels (needs the dev extra)
+$ coi-lint accuracy examples/labelled/pdfs --min-accuracy 0.95
+coi-lint extraction accuracy: 99.9% (755/756 fields, 30 files, 10.37 s)
+
+  form    10 files   252/252  100.0%  0.11 s
+  ocr     10 files   251/252   99.6%  10.11 s
+  text    10 files   252/252  100.0%  0.15 s
+
+Weakest fields: coverages.*.policy_number (1)
+
+Misses (first 1 of 1):
+  cert-30.pdf [ocr] coverages.general_liability.policy_number: expected 'GL-0000301', got 'GL-O000301'
+
+PASS: accuracy 99.9% >= required 95.0%
+```
+
+That one miss is exactly why scanned certificates carry a COI010 "verify the values" warning: OCR read a zero as the letter O. `--format md` gives a table (CI writes it to the run summary), `--format json` gives every miss, and `--min-accuracy` makes the command exit `1` when a field map falls below the bar. A coverage that isn't on a certificate at all is treated as absent (COI002 if it's required), not as unreadable. Timing: a 100-file sweep of fillable/flat PDFs takes about 1 s; OCR adds about 1 s per scanned page.
 
 ## Track renewals
 
@@ -142,25 +166,26 @@ python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,pdf]"          # add ,ocr and install Tesseract to read scanned certificates
 pytest -q
 coi-lint check examples/pdfs/northside-flat.pdf --rules examples/requirements.yaml
+python scripts/make_labelled_set.py && coi-lint accuracy examples/labelled/pdfs   # optional: score PDF reading
 ```
 
 ## Project structure
 
 ```
-src/coi_lint/   cli · models · rules · packs · config · waivers · extract · report · project · renewals · export · inbox · notify
+src/coi_lint/   cli · models · rules · packs · config · waivers · extract · accuracy · report · project · renewals · export · inbox · notify
 src/coi_lint/fieldmaps/   PDF field maps (YAML)
-examples/       requirements*.yaml · waivers.yaml · cert_sample.json · certs/ · pdfs/  (all fictional)
+examples/       requirements*.yaml · waivers.yaml · cert_sample.json · certs/ · pdfs/ · labelled/truth/  (all fictional)
 packs/          example rule pack
 schemas/        JSON Schemas for certificates, requirements, waivers, packs
-scripts/        make_sample_pdfs.py · precommit.sh
-tests/          39 tests (pytest)
+scripts/        make_sample_pdfs.py · make_labelled_set.py · precommit.sh
+tests/          46 tests (pytest)
 skills/coi-lint/  SKILL.md for Claude and other agents
 docs/           media (launch video, cover) · examples (GitHub workflow)
 ```
 
 ## Roadmap
 
-Done: rules core (v0.1), renewals (v0.2), PDFs, waivers, packs, reports and automation (v0.3); see [CHANGELOG.md](CHANGELOG.md). Next: field maps for common real-world certificate layouts, a labelled accuracy set for extraction, PDF integrity signals, and PyPI. Full checklist in [Phases.md](Phases.md).
+Done: rules core (v0.1), renewals (v0.2), PDFs, waivers, packs, reports and automation (v0.3), extraction accuracy check + labelled set (v0.4); see [CHANGELOG.md](CHANGELOG.md). Next: field maps for common real-world certificate layouts (scored with `coi-lint accuracy`), PDF integrity signals, extraction timeouts, and PyPI. Full checklist in [Phases.md](Phases.md).
 
 ## Docs
 

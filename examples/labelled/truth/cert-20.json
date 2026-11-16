@@ -1,0 +1,54 @@
+{
+  "insured": "Banksia Insulation (fictional)",
+  "producer": "Example Brokers Pty (fictional)",
+  "holder": "Placeholder Property Trust",
+  "issued": "2026-01-24",
+  "description": "Installation at Riverside Stage 2.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000201",
+      "effective": "2025-07-21",
+      "expires": "2026-07-21",
+      "limits": {
+        "each_occurrence": 2000000,
+        "general_aggregate": 2000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000202",
+      "effective": "2026-01-20",
+      "expires": "2027-01-20",
+      "limits": {
+        "combined_single_limit": 2000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000203",
+      "effective": "2025-08-28",
+      "expires": "2026-08-28",
+      "limits": {
+        "each_occurrence": 5000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000204",
+      "effective": "2025-10-19",
+      "expires": "2026-10-19",
+      "limits": {
+        "el_each_accident": 500000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    }
+  ]
+}

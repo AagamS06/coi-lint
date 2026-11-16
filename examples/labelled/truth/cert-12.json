@@ -1,0 +1,32 @@
+{
+  "insured": "Kestrel Lifts (fictional)",
+  "producer": "Example Brokers Pty (fictional)",
+  "holder": "Example Builders LLC",
+  "issued": "2026-01-07",
+  "description": "Maintenance at Riverside Stage 2.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000121",
+      "effective": "2025-09-25",
+      "expires": "2026-09-25",
+      "limits": {
+        "each_occurrence": 5000000,
+        "general_aggregate": 10000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000122",
+      "effective": "2025-11-28",
+      "expires": "2026-11-28",
+      "limits": {
+        "el_each_accident": 1000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    }
+  ]
+}

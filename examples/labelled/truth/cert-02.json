@@ -1,0 +1,43 @@
+{
+  "insured": "Blue Gum Plumbing & Gas (fictional)",
+  "producer": "Placeholder Risk Partners (fictional)",
+  "holder": "Sample Developments Inc",
+  "issued": "2026-01-10",
+  "description": "Works at Riverside Stage 2.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000021",
+      "effective": "2025-11-18",
+      "expires": "2026-11-18",
+      "limits": {
+        "each_occurrence": 2000000,
+        "general_aggregate": 4000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000022",
+      "effective": "2025-10-11",
+      "expires": "2026-10-11",
+      "limits": {
+        "each_occurrence": 5000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000023",
+      "effective": "2025-12-22",
+      "expires": "2026-12-22",
+      "limits": {
+        "el_each_accident": 1000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    }
+  ]
+}

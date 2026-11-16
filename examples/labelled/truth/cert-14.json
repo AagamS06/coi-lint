@@ -1,0 +1,54 @@
+{
+  "insured": "Saltbush HVAC (fictional)",
+  "producer": "Sample Insurance Agency (fictional)",
+  "holder": "Sample Developments Inc",
+  "issued": "2026-09-21",
+  "description": "Installation at Level 3, 45 Example Rd.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000141",
+      "effective": "2026-07-03",
+      "expires": "2027-07-03",
+      "limits": {
+        "each_occurrence": 1000000,
+        "general_aggregate": 4000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000142",
+      "effective": "2026-03-07",
+      "expires": "2027-03-07",
+      "limits": {
+        "combined_single_limit": 1000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000143",
+      "effective": "2026-08-28",
+      "expires": "2027-08-28",
+      "limits": {
+        "each_occurrence": 1000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000144",
+      "effective": "2026-03-30",
+      "expires": "2027-03-30",
+      "limits": {
+        "el_each_accident": 1000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    }
+  ]
+}

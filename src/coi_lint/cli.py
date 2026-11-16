@@ -10,7 +10,7 @@ from pathlib import Path
 
 import yaml
 
-from . import __version__, export, project
+from . import __version__, accuracy, export, project
 from .config import load_requirements
 from .extract import extract, load_documents, load_fieldmap
 from .inbox import certificate_findings
@@ -63,6 +63,22 @@ def _extract(a: argparse.Namespace) -> int:
         return _err(exc)
     print(json.dumps(data, indent=2))
     return 1 if data["_unreadable"] else 0
+
+
+def _accuracy(a: argparse.Namespace) -> int:
+    try:
+        if a.min_accuracy is not None and not 0 <= a.min_accuracy <= 1:
+            raise ValueError("--min-accuracy must be between 0 and 1 (e.g. 0.95)")
+        results = accuracy.run(a.paths, load_fieldmap(a.fieldmap))
+    except USER_ERRORS as exc:
+        return _err(exc)
+    if a.format == "json":
+        print(accuracy.as_json(results, a.min_accuracy))
+    else:
+        print(accuracy.as_text(results, a.min_accuracy, a.show_misses, md=a.format == "md"))
+    if a.min_accuracy is None:
+        return 0
+    return 0 if accuracy.summary(results)["accuracy"] >= a.min_accuracy else 1
 
 
 def _explain(a: argparse.Namespace) -> int:
@@ -199,6 +215,15 @@ def main(argv: list[str] | None = None) -> int:
     ex.add_argument("pdf", type=Path)
     ex.add_argument("--fieldmap", type=Path)
     ex.set_defaults(func=_extract)
+
+    ac = sub.add_parser("accuracy", help="score PDF extraction against labelled certificates (field-level accuracy)")
+    ac.add_argument("paths", type=Path, nargs="+", help="PDFs and/or folders; each NAME.pdf needs a NAME.json label "
+                    "next to it or in ../truth/")
+    ac.add_argument("--fieldmap", type=Path, help="field map to test (default: the bundled sample map)")
+    ac.add_argument("--min-accuracy", type=float, help="exit 1 if accuracy is below this (0-1, e.g. 0.95)")
+    ac.add_argument("--format", choices=["text", "md", "json"], default="text")
+    ac.add_argument("--show-misses", type=int, default=10, help="how many misses to list (default 10)")
+    ac.set_defaults(func=_accuracy)
 
     xp = sub.add_parser("explain", help="explain a rule id (or list all rules)")
     xp.add_argument("rule", nargs="?")

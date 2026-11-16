@@ -1,0 +1,54 @@
+{
+  "insured": "Riverbend Glazing (fictional)",
+  "producer": "Placeholder Risk Partners (fictional)",
+  "holder": "Sample Developments Inc",
+  "issued": "2026-07-29",
+  "description": "Installation at 120 Harbor St fit-out.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000051",
+      "effective": "2026-07-21",
+      "expires": "2027-07-21",
+      "limits": {
+        "each_occurrence": 1000000,
+        "general_aggregate": 10000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000052",
+      "effective": "2026-03-18",
+      "expires": "2027-03-18",
+      "limits": {
+        "combined_single_limit": 1000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000053",
+      "effective": "2026-02-02",
+      "expires": "2027-02-02",
+      "limits": {
+        "each_occurrence": 5000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000054",
+      "effective": "2026-03-24",
+      "expires": "2027-03-24",
+      "limits": {
+        "el_each_accident": 1000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    }
+  ]
+}

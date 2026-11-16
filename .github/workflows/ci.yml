@@ -17,3 +17,7 @@ jobs:
       - run: pip install -e ".[dev,pdf,ocr]"
       - run: ruff check .
       - run: pytest -q
+      - name: Extraction accuracy on the labelled set (30 fictional certificates)
+        run: |
+          python scripts/make_labelled_set.py
+          coi-lint accuracy examples/labelled/pdfs --format md --min-accuracy 0.95 | tee -a "$GITHUB_STEP_SUMMARY"

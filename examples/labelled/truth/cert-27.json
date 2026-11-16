@@ -1,0 +1,54 @@
+{
+  "insured": "Tallowwood Flooring (fictional)",
+  "producer": "Example Brokers Pty (fictional)",
+  "holder": "Placeholder Property Trust",
+  "issued": "2026-03-12",
+  "description": "Works at 120 Harbor St fit-out.",
+  "coverages": [
+    {
+      "kind": "general_liability",
+      "policy_number": "GL-0000271",
+      "effective": "2025-08-25",
+      "expires": "2026-08-25",
+      "limits": {
+        "each_occurrence": 2000000,
+        "general_aggregate": 4000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "auto",
+      "policy_number": "AU-0000272",
+      "effective": "2026-01-15",
+      "expires": "2027-01-15",
+      "limits": {
+        "combined_single_limit": 2000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": false
+    },
+    {
+      "kind": "umbrella",
+      "policy_number": "UM-0000273",
+      "effective": "2026-01-03",
+      "expires": "2027-01-03",
+      "limits": {
+        "each_occurrence": 5000000
+      },
+      "additional_insured": true,
+      "waiver_of_subrogation": true
+    },
+    {
+      "kind": "workers_comp",
+      "policy_number": "WC-0000274",
+      "effective": "2025-11-15",
+      "expires": "2026-11-15",
+      "limits": {
+        "el_each_accident": 1000000
+      },
+      "additional_insured": false,
+      "waiver_of_subrogation": true
+    }
+  ]
+}

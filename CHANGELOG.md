@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.0 — 2026-11-16
+Know how far to trust PDF extraction before you rely on it.
+
+- **`coi-lint accuracy <pdfs/dirs>`**: reads each PDF and compares every field with its label (`NAME.json` next to it or in `../truth/`). Prints overall and per-method accuracy (form / text / OCR), timing, the weakest fields and each miss with expected vs got. `--format text|md|json`, `--min-accuracy 0.95` exits `1` below the bar, `--show-misses N`.
+- **Labelled set**: 30 fictional certificates in `examples/labelled/truth/` (10 fillable, 10 flat, 10 scanned; varied names, limits, dates, yes/no marks and missing coverages), rendered by `scripts/make_labelled_set.py`. Current result with the bundled field map: 99.9% (755/756 fields; the one miss is an OCR zero read as the letter O).
+- **CI** renders the set and runs `coi-lint accuracy --min-accuracy 0.95`, writing the table to the run summary.
+- **Fix**: a coverage section that isn't on a PDF certificate at all is now treated as absent (COI002 if required) instead of a wall of COI009 "could not read" failures. Partly-read coverages are still COI009.
+- `scripts/make_sample_pdfs.py` can render certificates that leave coverages out. 46 tests.
+
 ## v0.3.0 — 2026-11-04
 CodeRabbit-style automation, rebuilt to stay free: no AI in the verdict, no API keys, no server.
 
